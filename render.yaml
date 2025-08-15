@@ -3,7 +3,8 @@ services:
     name: pocketbase
     env: docker
     plan: free
-    dockerfilePath: ./Dockerfile
-    envVars:
-      - key: PORT
-        value: 10000
+    branch: main
+    healthCheckPath: /
+    startCommand: |
+      ./pocketbase superuser upsert admin@example.com myStrongPassword
+      ./pocketbase serve --http=0.0.0.0:10000
