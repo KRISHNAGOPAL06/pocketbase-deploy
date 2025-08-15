@@ -10,6 +10,7 @@ services:
         sync: false
       - key: SUPERUSER_PASSWORD
         sync: false
-    startCommand: |
-      ./pocketbase superuser upsert "$SUPERUSER_EMAIL" "$SUPERUSER_PASSWORD"
-      ./pocketbase serve --http=0.0.0.0:10000
+    startCommand: >
+      sh -c "rm -f /app/pb_data/data.db &&
+             ./pocketbase superuser upsert \"$SUPERUSER_EMAIL\" \"$SUPERUSER_PASSWORD\" &&
+             ./pocketbase serve --http=0.0.0.0:10000"
